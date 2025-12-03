@@ -8,7 +8,6 @@
 Структура базы данных
 Установка и настройка
 Основные таблицы
-Запросы и отчеты
 Триггеры и автоматизация
 Хранимые процедуры
 Примеры использования
@@ -31,20 +30,7 @@
 
 **Диаграмма схемы:**
 
-
-┌─────────────┐       ┌─────────────┐       ┌─────────────┐
-│  Categories │◄──────┤   Products  │◄──────┤ Order_items │
-└─────────────┘       └─────────────┘       └─────────────┘
-      ▲                      ▲                      │
-      │                      │                      │
-      │                ┌─────────────┐              │
-      └────────────────┤   Orders    │◄─────────────┘
-                       └─────────────┘
-                              │
-                              │
-                       ┌─────────────┐
-                       │  Customers  │
-                       └─────────────┘
+<img width="483" height="304" alt="image" src="https://github.com/user-attachments/assets/39271ef2-4c2f-41c8-a8fe-654b920f9a80" />
 
 🚀 **Установка и настройка**
 
@@ -57,7 +43,7 @@ MySQL Workbench или другой клиент
 
 📊 Основные таблицы
 
-1. Categories - Категории товаров
+1. **Categories - Категории товаров**
 ```
 CREATE TABLE Categories (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -68,7 +54,7 @@ CREATE TABLE Categories (
 );
 ```
 
-2. Products - Товары
+2. **Products - Товары**
 ```
 CREATE TABLE Products (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -83,7 +69,7 @@ CREATE TABLE Products (
 );
 
 ```
-3. Customers - Клиенты
+3. **Customers - Клиенты**
 ```
 CREATE TABLE Customers (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -95,7 +81,7 @@ CREATE TABLE Customers (
 );
 
 ```
-4. Orders - Заказы
+4. **Orders - Заказы**
 ```
 CREATE TABLE Orders (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -108,7 +94,7 @@ CREATE TABLE Orders (
 );
 
 ```
-5. Order_items - Позиции заказа
+5. **Order_items - Позиции заказа**
 ```
 CREATE TABLE Order_items (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -120,4 +106,29 @@ CREATE TABLE Order_items (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
-                      
+
+                    
+⚡ **Триггеры и автоматизация**
+
+Основные триггеры:
+after_order_item_insert - **уменьшает остатки при добавлении товара в заказ**
+after_order_item_update - **корректирует остатки при изменении заказа**
+after_order_item_delete - **возвращает товары при удалении из заказа**
+after_order_cancelled - **возвращает все товары при отмене заказа**
+
+Пример работы триггера:
+```
+-- При добавлении товара в заказ автоматически:
+-- 1. Проверяется доступное количество
+-- 2. Уменьшается stock_quantity
+-- 3. Обновляется total_amount заказа
+```
+
+📞 **Поддержка**
+
+Для вопросов и поддержки:
+
+Напишите на pmdworking@yandex.ru
+
+📄 **Лицензия**
+Этот проект распространяется под лицензией MIT. См. файл LICENSE для получения дополнительной информации.
